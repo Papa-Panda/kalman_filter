@@ -37,11 +37,17 @@ class KalmanFilter:
         print(estimate)  # Output: something close to 7.5
     """
     
-    def __init__(self, process_variance, estimated_measurement_variance):
+    def __init__(
+        self,
+        process_variance,
+        estimated_measurement_variance,
+        posteri_estimate=0.0,
+        posteri_error_estimate=1.0,
+    ):
         self.process_variance = process_variance
         self.estimated_measurement_variance = estimated_measurement_variance
-        self.posteri_estimate = 0.0
-        self.posteri_error_estimate = 1.0
+        self.posteri_estimate = posteri_estimate
+        self.posteri_error_estimate = posteri_error_estimate
 
     def input_latest_noisy_measurement(self, measurement):
         """
@@ -54,10 +60,20 @@ class KalmanFilter:
         """
         priori_estimate = self.posteri_estimate
         priori_error_estimate = self.posteri_error_estimate + self.process_variance
+        
+        print('Prediction')
+        print(round(priori_estimate,3), round(priori_error_estimate,3))
 
-        blending_factor = priori_error_estimate / (priori_error_estimate + self.estimated_measurement_variance)
-        self.posteri_estimate = priori_estimate + blending_factor * (measurement - priori_estimate)
+        blending_factor = priori_error_estimate / (
+            priori_error_estimate + self.estimated_measurement_variance
+        )
+        self.posteri_estimate = priori_estimate + blending_factor * (
+            measurement - priori_estimate
+        )
         self.posteri_error_estimate = (1 - blending_factor) * priori_error_estimate
+
+        print('Update')
+        print(round(self.posteri_estimate,3), round(self.posteri_error_estimate,3))
 
     def get_latest_estimated_measurement(self):
         """
@@ -69,3 +85,14 @@ class KalmanFilter:
             The current estimate of the process state.
         """
         return self.posteri_estimate
+    
+    def get_latest_estiamted_error(self):
+         """
+        Return the current estimate error of the process state.
+        
+        Returns
+        -------
+        float
+            The current estimate error of the process state.
+        """
+        return self.posteri_error_estimate
