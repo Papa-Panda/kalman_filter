@@ -1,3 +1,41 @@
+# class KalmanFilter:
+#     def __init__(
+#         self,
+#         process_variance,
+#         estimated_measurement_variance,
+#         posteri_estimate=0.0,
+#         posteri_error_estimate=1.0,
+#     ):
+#         self.process_variance = process_variance
+#         self.estimated_measurement_variance = estimated_measurement_variance
+#         self.posteri_estimate = posteri_estimate
+#         self.posteri_error_estimate = posteri_error_estimate
+
+#     def input_latest_noisy_measurement(self, measurement):
+#         priori_estimate = self.posteri_estimate
+#         priori_error_estimate = self.posteri_error_estimate + self.process_variance
+        
+#         print('Prediction')
+#         print(round(priori_estimate,3), round(priori_error_estimate,3))
+
+#         blending_factor = priori_error_estimate / (
+#             priori_error_estimate + self.estimated_measurement_variance
+#         )
+#         self.posteri_estimate = priori_estimate + blending_factor * (
+#             measurement - priori_estimate
+#         )
+#         self.posteri_error_estimate = (1 - blending_factor) * priori_error_estimate
+
+#         print('Update')
+#         print(round(self.posteri_estimate,3), round(self.posteri_error_estimate,3))
+
+
+#     def get_latest_estimated_measurement(self):
+#         return self.posteri_estimate
+
+#     def get_latest_estiamted_error(self):
+#         return self.posteri_error_estimate
+
 class KalmanFilter:
     """
     A simple Kalman filter implementation.
@@ -21,17 +59,13 @@ class KalmanFilter:
     ----------
         # Create a Kalman filter with some process variance and some estimated measurement variance
         kalman_filter = KalmanFilter(1, 1)
-
         # Provide an initial estimate of the process state
         kalman_filter.input_latest_noisy_measurement(5)
-
         # Get the current estimate of the process state
         estimate = kalman_filter.get_latest_estimated_measurement()
         print(estimate)  # Output: 5
-
         # Input a new measurement
         kalman_filter.input_latest_noisy_measurement(10)
-
         # Get the updated estimate of the process state
         estimate = kalman_filter.get_latest_estimated_measurement()
         print(estimate)  # Output: something close to 7.5
@@ -87,7 +121,7 @@ class KalmanFilter:
         return self.posteri_estimate
     
     def get_latest_estiamted_error(self):
-         """
+        """
         Return the current estimate error of the process state.
         
         Returns
