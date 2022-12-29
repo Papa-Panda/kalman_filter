@@ -24,17 +24,12 @@ def main():
     xk = (1 - Kk H ) Xk + Kk zk
     Pk = (1-Kk H) Pk-
 
-
     wk is related to Q: Q = var(wk)
     vk is related to R: R = var(vk)
-
-
-
     Q = process_variance = 0.12
     R = estimated_measurement_variance = 0.12
     xk = posteri_estimate = 2 initially
     Pk =  posteri_error_estimate = 0.22 initially
-
     """
     measurement_list = [13]
     process_variance = 0.1**2
