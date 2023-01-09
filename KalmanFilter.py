@@ -1,6 +1,6 @@
 class KalmanFilter:
     """
-    A simple Kalman filter implementation.
+    A basic Kalman filter implementation.
 
     Assumes a process with additive white Gaussian noise and attempts to estimate
     the state of the process using noisy measurements.
